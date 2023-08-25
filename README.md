@@ -46,6 +46,34 @@ Goto cypress.config.js and add the following commands , these commands should be
 },
 ```
 
+This needs to be changed to use the config:
+
+```js
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      config.excludeSpecPattern = "**/examples/*.js"; // ignoreTestFiles configuration option is now invalid
+      config.specPattern = "cypress/e2e/**/*.{js,jsx,ts,tsx,feature}";
+      config.chromeWebSecurity = false;
+      config.defaultCommandTimeout = 10000;
+      config.pageLoadTimeout = 120000;
+      config.baseUrl = "http://localhost:3000/";
+      return config;
+    },
+  },
+});
+```
+
+Using excludeSpecPattern also caused this error: *The ignoreTestFiles configuration option is now invalid when set on the config object in Cypress version 10.0.0. It is now renamed to excludeSpecPattern and configured separately as a testing type property: e2e.excludeSpecPattern*
+
+```js
+{
+  e2e: {
+    specPattern: '...',
+  },
+}
+```
+
 ## Installing cypress xpaths
 
 Enter the following command on the terminal to install [cypress-xpath](https://www.npmjs.com/package/cypress-xpath):
