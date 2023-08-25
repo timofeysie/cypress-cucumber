@@ -1,6 +1,8 @@
-# Cypress Cucumber Automatioin Clone
+# Cypress Cucumber Gherkin
 
-# Cucumber Cypress Automation Testing
+This project is designed to test the [React Redux TypeScript Example](https://github.com/timofeysie/redux-typescript-example) using Cypress and Cucumber with Gherkin syntax.
+
+## Cucumber Cypress Automation Testing
 
 This is a Cypress end-to-end testing project that uses Cucumber and Gherkin.
 
