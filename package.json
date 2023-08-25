@@ -1,0 +1,11 @@
+{
+  "name": "cypress-cucumnber",
+  "version": "1.0.0",
+  "description": "Cucumber Cypress Automation Testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "timothy curchod",
+  "license": "ISC"
+}
