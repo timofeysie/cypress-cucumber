@@ -1,5 +1,5 @@
 {
-  "name": "cypress-cucumnber",
+  "name": "cypress-cucumber",
   "version": "1.0.0",
   "description": "Cucumber Cypress Automation Testing",
   "main": "index.js",
@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "timothy curchod",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^12.5.1"
+  }
 }
