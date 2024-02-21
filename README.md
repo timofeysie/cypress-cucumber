@@ -26,7 +26,7 @@ npx cypress open
 
 ## Configuration Installation Steps
 
-Setting up the project for the first time
+This project was created with the following steps.
 
 ```shell
 npm init // To create the project package.json
@@ -34,9 +34,9 @@ npm install –save-dev cypress@12.5.1 // To install the latest cypress versions
 ./node_modules/.bin/cypress open ( This is used to get the necessary default configs in place).
 ```
 
-Once the initial setup is completed
+Once the initial setup is completed, go to cypress.config.js and add the following commands.
 
-Goto cypress.config.js and add the following commands , these commands should be inside the e2e : {}
+Note these commands should be inside the ```e2e : {}``` section:
 
 ```shell
 {
