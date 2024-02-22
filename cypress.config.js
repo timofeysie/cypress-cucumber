@@ -11,6 +11,6 @@ module.exports = defineConfig({
         chromeWebSecurity: false,
         defaultCommandTimeout: 10000,
         pageLoadTimeout: 120000,
-        baseUrl: "http://localhost:3000/",
+        baseUrl: "https://dot-one-26b272efdbb8.herokuapp.com/",
     },
 });
