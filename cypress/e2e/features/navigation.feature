@@ -1,7 +1,7 @@
 Feature: Navigation
 
-  Scenario: Navigating to Posts page
-    Given I am on the homepage
-    When I click the "Posts" link
-    Then I should be on the Posts page
+  Scenario: Navigating to sing in page
+    Given I am on the HomePage
+    When I click the "Sign in" link
+    Then I should be on the Sign in page
 

@@ -60,7 +60,7 @@ describe('Navigation', () => {
 
 This is a plain cypress test and does not provide the readable specification shown above.  To do that we need the power of cucumber and gherkin.
 
-If we want to convert the above to use cucumber with gherkin, this is what it would look like.
+If we want to convert the above to use cucumber, this is what it would look like.
 
 We have a cypress\support\step_definitions\navigation.steps.js file that contains our cucumber assertions:
 
@@ -90,3 +90,115 @@ Feature: Navigation
     When I click the "Posts" link
     Then I should be on the Posts page
 ```
+
+## In brief
+
+In brief we go from a Page Object -> Cucumber definition -> Gherkin test.
+
+1. cypress\support\page_objects\PaneName.js
+2. cypress\support\step_definitions\page.steps.js
+3. cypress\e2e\features\page.feature (yml)
+
+### cypress\support\page_objects\PostsList.js
+
+```js
+class NavPage {
+    // Elements
+    get postsLink() {
+        return cy.get('nav a[href="/"]');
+    }
+
+    // Actions
+    clickPostsLink() {
+        this.postsLink.click();
+    }
+}
+```
+
+### cypress\support\step_definitions\navigation.steps.js
+
+```js
+Given('I am on the homepage', () => {
+  cy.visit('/');
+});
+
+When('I click the {string} link', (linkText) => {
+  if (linkText === 'Posts') {
+    PostsList.clickPostsLink();
+  } else if (linkText === 'Refresh Posts') {
+    PostsList.clickRefreshPostsButton();
+  }
+});
+
+Then('I should be on the Posts page', () => {
+  // Add assertions or further actions related to the Posts page
+  // For example: cy.url().should('include', '/posts');
+});
+```
+
+### cypress\e2e\features\navigation.feature
+
+```yml
+Feature: Navigation
+
+  Scenario: Navigating to Posts page
+    Given I am on the homepage
+    When I click the "Posts" link
+    Then I should be on the Posts page
+```
+
+## A real work example
+
+I have a demo social network site I want to test.
+
+I set the baseUrl in the cypress.config.js file.
+
+I want to test the sign in functionality.  This starts with the home page nave bar link to sign in.
+
+In cypress\support\page_objects\HomePage.js I create a get statement for the sign in link and then a function to click it.
+
+```js
+class NavPage {
+    // Elements
+    get signinLink() {
+        return cy.get('nav a[href="/signin"]');
+    }
+    // Actions
+    clickSigninLink() {
+        this.signinLink.click();
+    }
+}
+```
+
+In the cypress\support\step_definitions\navigation.steps.js file using the Given/When/Then Cucumber functions I visit the home page, check that I am not already signed in, then call the sign in function created above.
+
+Then I check that I am on the sign in page.
+
+```js
+Given('I am on the HomePage', () => {
+  cy.visit('/');
+});
+
+When('I click the {string} link', (linkText) => {
+  if (linkText === 'Sign in') {
+    HomePage.clickSigninLink();
+  }
+});
+
+Then('I should be on the Sign in page', () => {
+  cy.url().should('include', '/signin');
+});
+```
+
+In the cypress\e2e\features\navigation.feature file I compose the steps in Gherkin syntax to use the above functionality.
+
+```yml
+Feature: Navigation
+
+  Scenario: Navigating to Sign in page
+    Given I am on the HomePage
+    When I click the "Sign in" link
+    Then I should be on the Sign in page
+```
+
+Then in the command line, I run ```npx cypress open```, choose e2e testing and the navigation test and it runs and I sit back and watch it do its thing.

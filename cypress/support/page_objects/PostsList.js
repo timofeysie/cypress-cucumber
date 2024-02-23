@@ -1,5 +1,9 @@
 class NavPage {
     // Elements
+    get signinLink() {
+        return cy.get('nav a[href="/signin"]');
+    }
+    // old
     get postsLink() {
         return cy.get('nav a[href="/"]');
     }
@@ -16,6 +20,10 @@ class NavPage {
         return cy.get("nav button.button").eq(1);
     }
     // Actions
+    clickSigninLink() {
+        this.signinLink.click();
+    }
+    // old actions
     clickPostsLink() {
         this.postsLink.click();
     }
