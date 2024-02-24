@@ -15,11 +15,25 @@ When('I click the {string} link', (linkText) => {
 });
 
 Then('I should be on the Sign in page', () => {
-  // Add assertions or further actions related to the Posts page
-  // For example: cy.url().should('include', '/posts');
   cy.url().should('include', '/signin');
 });
 
-// Then('the posts should be refreshed', () => {
-//   // Add assertions or further actions related to refreshing posts
-// });
+And('I enter the username {string}', (username)=> {
+  HomePage.typeUsername(username);
+})
+
+And('I enter the password {string}', (password)=> {
+  HomePage.typePassword(password);
+})
+
+And('I click on the sign in button', ()=> {
+  HomePage.clickSignin()
+})
+
+Then('I will be signed in', ()=> {
+  cy.url().should('contains' , '/');
+})
+
+Then('Error message should be displayed', () => {
+  HomePage.elements.errorMessageLogin().should('have.text','Incorrect username or password.')
+})

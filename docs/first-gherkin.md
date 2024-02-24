@@ -12,7 +12,9 @@ The goal is to write a test with natural language such as "Given I am on the hom
 
 Here we work from a raw Javascript to provide a base for a Cucumber file using gherkin syntax in a yml format to use natural language like the above to test our web app.
 
-Imagine we have a web page with a nav elements we want to test.
+## The basics
+
+Imagine we have a web page with navigation elements we want to test.
 
 In this example we use the cypress\support\page_objects\PostsList.js file this project like this:
 
@@ -98,6 +100,8 @@ In brief we go from a Page Object -> Cucumber definition -> Gherkin test.
 1. cypress\support\page_objects\PaneName.js
 2. cypress\support\step_definitions\page.steps.js
 3. cypress\e2e\features\page.feature (yml)
+
+In code this looks like the following:
 
 ### cypress\support\page_objects\PostsList.js
 
@@ -201,4 +205,63 @@ Feature: Navigation
     Then I should be on the Sign in page
 ```
 
-Then in the command line, I run ```npx cypress open```, choose e2e testing and the navigation test and it runs and I sit back and watch it do its thing.
+Then in the command line, I run ```npx cypress open```, choose e2e testing, choose a browser and "start e2e testing in <browser>", and the navigation test and it runs and I sit back and watch it do its thing.
+
+### Signing in
+
+After arriving on the sing in page, next we want to enter credentials and confirm sign in.  That looks like this.
+
+#### file: cypress\support\page_objects\HomePage.js
+
+```js
+elements = {
+    usernameInput: () => cy.get('#username'),
+    passwordInput: () => cy.get('#password'),
+    signinBtn: () => cy.get('form button[type="submit"]')
+}
+
+typeUsername(username) {
+    this.elements.usernameInput().type(username, { force: true });
+}
+
+typePassword(password) {
+    this.elements.passwordInput().type(password, { force: true });
+}
+
+clickSignin() {
+    this.elements.signinBtn().click();
+}
+```
+
+#### file: cypress\support\step_definitions\navigation.steps.js
+
+```js
+Then('I should be on the Sign in page', () => {
+  cy.url().should('include', '/signin');
+});
+
+And('I enter the username {string}', (username)=> {
+  HomePage.typeUsername(username);
+})
+
+And('I enter the password {string}', (password)=> {
+  HomePage.typePassword(password);
+})
+
+And('I click on the sign in button', ()=> {
+  HomePage.clickSignin()
+})
+
+Then('I will be signed in', ()=> {
+  cy.url().should('contains' , '/');
+})
+```
+
+#### file: cypress\e2e\features\navigation.feature
+
+```yml
+And I enter the username "Centrist1"
+And I enter the password "iamthelizardking"
+And I click on the sign in button
+Then I will be signed in
+```

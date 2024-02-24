@@ -1,7 +1,9 @@
 Feature: Navigation
 
-  Scenario: Navigating to sing in page
+  Scenario: Navigating to sign in page
     Given I am on the HomePage
     When I click the "Sign in" link
-    Then I should be on the Sign in page
-
+    And I enter the username "Centrist1"
+    And I enter the password "iamthelizardking"
+    And I click on the sign in button
+    Then I will be signed in
