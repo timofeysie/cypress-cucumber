@@ -12,7 +12,9 @@ The [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-l
 
 To accomplish this within Cypress we use the [cypress-cucumber-preprocessor](https://github.com/badeball/cypress-cucumber-preprocessor).
 
-Tests can be written in [Gherkin Syntax](https://cucumber.io/docs/gherkin/)
+*[Cypress Cucumber Preprocessor](https://www.browserstack.com/guide/cypress-cucumber-preprocessor) is a plugin for the Cypress testing framework that allows you to write end-to-end tests using the Cucumber testing framework‘s Gherkin syntax* created by [Browserstack](https://www.browserstack.com/) which is a company that allows you to test your site or app on *20,000+ real devices* as they claim.
+
+Tests can be written in [Gherkin Syntax](https://cucumber.io/docs/gherkin/) which is part of Cucumber.
 
 ## Workflow
 
@@ -25,6 +27,10 @@ npx cypress open
 ```
 
 ## Configuration Installation Steps
+
+If you want to re-create your own version of this great testing app, follow the steps below.
+
+Otherwise, you can just clone this repo and follow the steps in the [create your first gherkin](/docs/first-gherkin.md) tutorial and get started that way.
 
 This project was created with the following steps.
 

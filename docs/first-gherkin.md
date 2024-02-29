@@ -10,11 +10,24 @@ Tests can be written in [Gherkin Syntax](https://cucumber.io/docs/gherkin/) whic
 
 The goal is to write a test with natural language such as "Given I am on the homepage, when I click the 'Posts' link, then I should be on the Posts page".
 
-Here we work from a raw Javascript to provide a base for a Cucumber file using gherkin syntax in a yml format to use natural language like the above to test our web app.
+These are known as *[executable specifications](https://cucumber.io/blog/hiptest/what-are-executable-specifications/)* in "Given-When-Then-And-But" steps. These scenarios are saved as `.feature` files in the [yaml](https://en.wikipedia.org/wiki/YAML) format.  An example of one of these from this project looks like this:
+
+```yml
+Feature: Navigation
+  Scenario: Navigating to sign in page
+    Given I am on the HomePage
+    When I click the "Sign in" link
+    And I enter the username "..."
+    And I enter the password "..."
+    And I click on the sign in button
+    Then I will be signed in
+```
+
+These scripts connect with Javascript files to provide end-to-end tests for a web app.
 
 ## The basics
 
-Imagine we have a web page with navigation elements we want to test.
+Imagine we have a web page with navigation elements we want to test.  We start by creating a page object that contains selectors for the elements we want to test.  It can have elements and user actions defined.
 
 In this example we use the cypress\support\page_objects\PostsList.js file this project like this:
 
@@ -97,7 +110,7 @@ Feature: Navigation
 
 In brief we go from a Page Object -> Cucumber definition -> Gherkin test.
 
-1. cypress\support\page_objects\PaneName.js
+1. cypress\support\page_objects\PageName.js
 2. cypress\support\step_definitions\page.steps.js
 3. cypress\e2e\features\page.feature (yml)
 
@@ -150,6 +163,10 @@ Feature: Navigation
     When I click the "Posts" link
     Then I should be on the Posts page
 ```
+
+The important thing is that language in the Cucumber Expression matches the Gherkin step.
+
+The [official Cucumber docs say](https://cucumber.io/docs/cucumber/step-definitions/?lang=javascript): *A Step Definition is a method with an expression that links it to one or more Gherkin steps. When Cucumber executes a Gherkin step in a scenario, it will look for a matching step definition to execute.*
 
 ## A real work example
 
@@ -265,3 +282,13 @@ And I enter the password "iamthelizardking"
 And I click on the sign in button
 Then I will be signed in
 ```
+
+## Further resources
+
+If you are curious about going deeper, there is a lot of good documentation that can help you write all kinds of test scenarios.
+
+You can look at the official [cypress-cucumber-preprocessor guide](https://www.browserstack.com/guide/cypress-cucumber-preprocessor) which also shows how to install and create a Cucumber test.
+
+The Given, When, Then, And, or But are [Step keywords](https://cucumber.io/docs/gherkin/reference/?sbsearch=given#keywords).
+
+The [Before](https://cucumber.io/docs/cucumber/api/?lang=javascript#hooks) keyword is a hook which runs before the first step of each scenario.
