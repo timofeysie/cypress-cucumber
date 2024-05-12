@@ -6,6 +6,7 @@ module.exports = defineConfig({
         setupNodeEvents(on, config) {
             on("file:preprocessor", cucumber());
         },
+        projectId: "asdfasdf", // cloud integration
         // implement node event listeners here
         specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx,feature}",
         chromeWebSecurity: false,
