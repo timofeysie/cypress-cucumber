@@ -4,6 +4,10 @@ class NavPage {
         return cy.get('nav a[href="/signin"]');
     }
 
+    get profileLink() {
+        return cy.get('nav a[href^="/profiles/"]');
+    }
+
     elements = {
         usernameInput: () => cy.get('#username'),
         passwordInput: () => cy.get('#password'),
@@ -13,6 +17,10 @@ class NavPage {
     // Actions
     clickSigninLink() {
         this.signinLink.click();
+    }
+
+    clickProfileLink() {
+        this.profileLink.click();
     }
 
     typeUsername(username) {

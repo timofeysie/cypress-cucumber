@@ -277,8 +277,8 @@ Then('I will be signed in', ()=> {
 #### file: cypress\e2e\features\navigation.feature
 
 ```yml
-And I enter the username "Centrist1"
-And I enter the password "iamthelizardking"
+And I enter the username "<username>"
+And I enter the password "<password>"
 And I click on the sign in button
 Then I will be signed in
 ```
