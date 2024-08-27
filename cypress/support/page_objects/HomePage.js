@@ -1,39 +1,48 @@
-class NavPage {
-    // Elements
-    get signinLink() {
-        return cy.get('nav a[href="/signin"]');
-    }
+class HomePage {
+  // Elements
+  get signinLink() {
+    return cy.get('nav a[href="/signin"]');
+  }
 
-    get profileLink() {
-        return cy.get('nav a[href^="/profiles/"]');
-    }
+  get profileLink() {
+    return cy.get('nav a[href^="/profiles/"]');
+  }
 
-    elements = {
-        usernameInput: () => cy.get('#username'),
-        passwordInput: () => cy.get('#password'),
-        signinBtn: () => cy.get('form button[type="submit"]')
-    }
+  elements = {
+    usernameInput: () => cy.get("#username"),
+    passwordInput: () => cy.get("#password"),
+    signinBtn: () => cy.get('form button[type="submit"]'),
+  };
 
-    // Actions
-    clickSigninLink() {
-        this.signinLink.click();
-    }
+  // Actions
+  clickSigninLink() {
+    this.signinLink.click();
+  }
 
-    clickProfileLink() {
-        this.profileLink.click();
-    }
+  clickProfileLink() {
+    this.profileLink.click();
+  }
 
-    typeUsername(username) {
-        this.elements.usernameInput().type(username, { force: true });
-    }
+  logProfileLink() {
+    this.profileLink.then((profileLink) => {
+    });
+  }
 
-    typePassword(password) {
-        this.elements.passwordInput().type(password, { force: true });
-    }
+  typeUsername(username) {
+    this.elements.usernameInput().type(username, { force: true });
+  }
 
-    clickSignin() {
-        this.elements.signinBtn().click();
-    }
+  typePassword(password) {
+    this.elements.passwordInput().type(password, { force: true });
+  }
+
+  clickSignin() {
+    this.elements.signinBtn().click();
+  }
+
+  errorMessageLogin() {
+    return cy.get(".error-message"); // Adjust the selector based on your application's HTML
+  }
 }
 
-export default new NavPage();
+export default new HomePage();
