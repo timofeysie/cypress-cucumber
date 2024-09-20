@@ -1,5 +1,6 @@
 import { Given, When, Then } from "cypress-cucumber-preprocessor/steps";
 import HomePage from "../page_objects/HomePage";
+import ProfilePage from "../page_objects/ProfilePage ";
 
 Given("I am on the HomePage", () => {
   cy.visit("/");
@@ -40,4 +41,18 @@ Then("I will be signed in", () => {
     console.log("Current URL after sign in:", url);
   });
   cy.url().should("eq", Cypress.config("baseUrl"));
+});
+
+Given("Given I am on the profile page", () => {
+  cy.url().then((url) => {
+    expect(url).to.include("/profiles/");
+  });
+});
+
+When("I open the kebab menu", () => {
+  ProfilePage.clickKebabMenu();
+});
+
+Then("I click the edit profile link", () => {
+  ProfilePage.clickEditProfile();
 });

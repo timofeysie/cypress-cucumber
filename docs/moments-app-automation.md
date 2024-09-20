@@ -123,3 +123,87 @@ Feature: Profile
     When I click the "Profile" link
     Then I will be on the profile page
 ```
+
+#### The edit user menu
+
+There is a kebab menu on the user profile page.  It renders ike this:
+
+```html
+<div class="ml-auto px-3 MoreDropdown_Absolute__yi6pO dropleft">
+  <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+</div>
+```
+
+We have to target the outer div here despite the strange class names.  The inner i tag would be nice but doesn't work, and this is actually an interesting point here that I would like to understand.
+
+That menu is defined in the code in the  file:
+
+```js
+const ThreeDots = React.forwardRef(({ onClick }, ref) => (
+  <i
+    className="fas fa-ellipsis-v"
+    ref={ref}
+    onClick={(e) => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  />
+));
+...
+export const ProfileEditDropdown = ({ id }) => {
+  const history = useHistory();
+  return (
+    <Dropdown className={`ml-auto px-3 ${styles.Absolute}`} drop="left">
+      <Dropdown.Toggle as={ThreeDots} />
+      <Dropdown.Menu>
+        <Dropdown.Item
+          onClick={() => history.push(`/profiles/${id}/edit`)}
+          aria-label="edit-profile"
+        >
+          <i className="fas fa-edit" /> edit profile
+        </Dropdown.Item>
+        ...
+```
+
+You can see how the ThreeDots component is nested using the ```<Dropdown.Toggle as={ThreeDots} />``` which is a kind of feature that I haven't used as a developer before except for this project.
+
+In any case, we use the outer div class to perform the click.  I'm not sure what "__yi6pO" means and if it will be consistent in the future.  It is the result of the ```${styles.Absolute}```  which is another feature I am not very familiar with but will be reading up on.
+
+CLicking on this opens a menu that should have an 'edit profile' item which we want to click on:
+
+```html
+<a aria-label="edit-profile" href="#" class="dropdown-item" role="button">
+  <i class="fas fa-edit" aria-hidden="true"></i> 
+    edit profile
+  </a>
+```
+
+Lets create the page objects and actions to perform this function.
+
+The cypress\support\step_definitions\common.steps.js currently looks like this:
+
+```js
+When("I open the kebab menu", () => {
+  ProfilePage.clickKebabMenu();
+});
+
+Then("I click the edit profile link", () => {
+  ProfilePage.clickEditProfile();
+});
+```
+
+And the cypress\e2e\features\profile.feature in gherkin syntax we finally use these steps:
+
+```feature
+Feature: Profile
+
+  Scenario: I go to the profile page
+    Given I am on the HomePage
+    When I click the "Sign in" link
+    And I enter the username "<username>"
+    And I enter the password "<password>"
+    And I click on the sign in button
+    Then I will be signed in
+    When I click the "Profile" link
+    Then I will be on the profile page
+```
