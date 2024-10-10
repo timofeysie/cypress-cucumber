@@ -54,5 +54,42 @@ When("I open the kebab menu", () => {
 });
 
 Then("I click the edit profile link", () => {
-  ProfilePage.clickEditProfile();
+  ProfilePage.clickEditProfileLink();
+});
+
+Then("I should be on the edit profile page", () => {
+  ProfilePage.isOnEditProfilePage();
+});
+
+When('I update my bio to {string}', (newBio) => {
+  ProfilePage.updateBio(newBio);
+});
+
+When('I upload a new profile image {string}', (imagePath) => {
+  ProfilePage.uploadProfileImage(imagePath);
+});
+
+When('I click the save button', () => {
+  ProfilePage.clickSaveButton();
+});
+
+When('I click the cancel button', () => {
+  ProfilePage.clickCancelButton();
+});
+
+Then('I should see the edit profile form', () => {
+  ProfilePage.editProfileForm.should('be.visible');
+});
+
+Then('I should see my updated bio {string}', (updatedBio) => {
+  ProfilePage.bioTextarea.should('have.value', updatedBio);
+});
+
+Then('I should see my new profile image', () => {
+  // This step might need to be adjusted based on how the image is displayed
+  cy.get('img').should('have.attr', 'src').and('not.be.empty');
+});
+
+Then('I should not see my updated bio {string}', (unchangedBio) => {
+  ProfilePage.bioTextarea.should('not.have.value', unchangedBio);
 });

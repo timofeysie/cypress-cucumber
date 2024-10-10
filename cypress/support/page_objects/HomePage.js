@@ -8,6 +8,31 @@ class HomePage {
     return cy.get('nav a[href^="/profiles/"]');
   }
 
+  // profile form elements
+  get editProfileForm() {
+    return cy.get("form");
+  }
+
+  get bioTextarea() {
+    return cy.get('textarea[name="content"]');
+  }
+
+  get changeImageButton() {
+    return cy.get('label[for="image-upload"]');
+  }
+
+  get imageUploadInput() {
+    return cy.get("input#image-upload");
+  }
+
+  get cancelButton() {
+    return cy.get('button:contains("cancel")');
+  }
+
+  get saveButton() {
+    return cy.get('button[type="submit"]');
+  }
+
   elements = {
     usernameInput: () => cy.get("#username"),
     passwordInput: () => cy.get("#password"),
@@ -24,8 +49,7 @@ class HomePage {
   }
 
   logProfileLink() {
-    this.profileLink.then((profileLink) => {
-    });
+    this.profileLink.then((profileLink) => {});
   }
 
   typeUsername(username) {

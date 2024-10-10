@@ -11,3 +11,12 @@ Feature: Profile
     Given I will be on the profile page
     When I open the kebab menu
     Then I click the edit profile link
+    When I update my bio to "This is my new bio"
+    And I click the save button
+    Then I should see my updated bio "This is my new bio"
+    When I upload a new profile image "path/to/new/image.jpg"
+    And I click the save button
+    Then I should see my new profile image
+    When I update my bio to "This change should not be saved"
+    And I click the cancel button
+    Then I should not see my updated bio "This change should not be saved"
